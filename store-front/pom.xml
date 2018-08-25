@@ -11,6 +11,7 @@
 
     <artifactId>store-front</artifactId>
 
+    <packaging>jar</packaging>
 
     <dependencies>
 
