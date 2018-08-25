@@ -14,14 +14,14 @@ spec:
       labels:
         app: eureka01
     spec:
-      nodeName: eureka01-node
+      nodeName: yun1
       terminationGracePeriodSeconds: 60
       hostNetwork: true
       containers:
       - name: eureka01
         image: 172.21.20.11:5000/svc-center
         command: ["java"]
-        args: ["-jar", "/eureka.jar","--spring.profiles.active=docker","--server.port=8001","--eureka.instance.hostname=eureka01-node","--eureka01.host=eureka01-node","--eureka01.port=8001","--eureka02.host=eureka02-node","--eureka02.port=8002","--eureka03.host=eureka03-node","--eureka03.port=8003"]
+        args: ["-jar", "/eureka.jar","--spring.profiles.active=docker","--server.port=8001","--eureka.instance.hostname=yun1","--eureka01.host=yun1","--eureka01.port=8001","--eureka02.host=yun2","--eureka02.port=8002","--eureka03.host=yun3","--eureka03.port=8003"]
         ports:
         - name: http
           containerPort: 8001
