@@ -15,12 +15,12 @@ spec:
         app: store-order
     spec:
       terminationGracePeriodSeconds: 60
-      containers:
       hostNetwork: true
+      containers:
       - name: store-order
         image: yun.rep:5000/store-order
         command: ["java"]
-        args: ["-jar", "/store-order.jar","--spring.profiles.active=docker","--eureka01.host=eureka01","--eureka01.port=8001","--eureka02.host=eureka02","--eureka02.port=8002","--eureka03.host=eureka03","--eureka03.port=8003"]
+        args: ["-jar", "/store-order.jar","--spring.profiles.active=docker","--eureka01.host=yun1","--eureka01.port=8001","--eureka02.host=yun2","--eureka02.port=8002","--eureka03.host=yun3","--eureka03.port=8003"]
         ports:
         - name: http
           containerPort: 8763
