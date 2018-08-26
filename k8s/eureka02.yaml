@@ -1,0 +1,66 @@
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: eureka02
+  namespace: store
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eureka02
+  template:
+    metadata:
+      labels:
+        app: eureka02
+    spec:
+      nodeName: yun2
+      terminationGracePeriodSeconds: 60
+      hostNetwork: true
+      containers:
+      - name: eureka02
+        image: 172.21.20.11:5000/svc-center
+        command: ["java"]
+        args: ["-jar", "/eureka.jar","--spring.profiles.active=docker","--server.port=8002","--eureka.instance.hostname=yun2","--eureka01.host=yun1","--eureka01.port=8001","--eureka02.host=yun2","--eureka02.port=8002","--eureka03.host=yun3","--eureka03.port=8003"]
+        ports:
+        - name: http
+          containerPort: 8002
+          hostPort: 8002
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: 8002
+            scheme: HTTP
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: 8002
+            scheme: HTTP
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+      imagePullSecrets:
+        - name: yun-reg
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: eureka02
+  namespace: store
+  labels:
+    app: eureka02
+spec:
+  ports:
+  - port: 8002
+    name: eureka02
+    targetPort: 8002
+  selector:
+    app: eureka02
