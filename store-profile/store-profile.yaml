@@ -1,0 +1,47 @@
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: store-profile
+  namespace: store
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: store-profile
+  template:
+    metadata:
+      labels:
+        app: store-profile
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+      - name: store-profile
+        image: yun.rep:5000/store-profile
+        command: ["java"]
+        args: ["-jar", "/store-profile.jar","--spring.profiles.active=docker","--eureka01.host=yun1","--eureka01.port=8001","--eureka02.host=yun2","--eureka02.port=8002","--eureka03.host=yun3","--eureka03.port=8003"]
+        ports:
+        - name: http
+          containerPort: 8762
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: 8762
+            scheme: HTTP
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: 8762
+            scheme: HTTP
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+      imagePullSecrets:
+        - name: yun-reg
