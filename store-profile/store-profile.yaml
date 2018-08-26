@@ -15,6 +15,7 @@ spec:
         app: store-profile
     spec:
       terminationGracePeriodSeconds: 60
+      hostNetwork: true
       containers:
       - name: store-profile
         image: yun.rep:5000/store-profile
@@ -23,6 +24,7 @@ spec:
         ports:
         - name: http
           containerPort: 8762
+          hostPort: 8762
         livenessProbe:
           failureThreshold: 3
           httpGet:

@@ -16,6 +16,7 @@ spec:
     spec:
       terminationGracePeriodSeconds: 60
       containers:
+      hostNetwork: true
       - name: store-order
         image: yun.rep:5000/store-order
         command: ["java"]
@@ -23,6 +24,7 @@ spec:
         ports:
         - name: http
           containerPort: 8763
+          hostPort: 8763
         livenessProbe:
           failureThreshold: 3
           httpGet:
