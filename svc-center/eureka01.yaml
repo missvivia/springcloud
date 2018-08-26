@@ -47,7 +47,7 @@ spec:
           successThreshold: 1
           timeoutSeconds: 1
       imagePullSecrets:
-        - name: yun-reg
+        - name: yun.rep.password
 ---
 
 apiVersion: v1
