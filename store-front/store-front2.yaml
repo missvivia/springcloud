@@ -24,7 +24,7 @@ spec:
         ports:
         - name: http
           containerPort: 8800
-          #hostPort: 8800
+          hostPort: 8800
         livenessProbe:
           failureThreshold: 3
           httpGet:
