@@ -20,7 +20,7 @@ spec:
       - name: store-profile
         image: yun.rep:5000/store-profile
         command: ["java"]
-        args: ["-jar", "/store-profile.jar","--spring.profiles.active=docker2","--eureka01.host=eureka01","--eureka01.port=8001","--eureka02.host=eureka02","--eureka02.port=8002","--eureka03.host=eureka03","--eureka03.port=8003"]
+        args: ["-jar", "/store-profile.jar","--spring.profiles.active=docker2","--eureka01.host=172.21.20.3","--eureka01.port=8001","--eureka02.host=172.21.20.14","--eureka02.port=8002","--eureka03.host=172.21.0.2","--eureka03.port=8003"]
         ports:
         - name: http
           containerPort: 8762
